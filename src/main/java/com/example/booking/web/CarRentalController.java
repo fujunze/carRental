@@ -2,11 +2,14 @@ package com.example.booking.web;
 
 import com.example.booking.service.CarRentalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class CarRentalController {
@@ -22,32 +25,40 @@ public class CarRentalController {
      * @return
      */
     @RequestMapping("/car/booking")
-    public String booking(@RequestParam String mobile, @RequestParam String type, @RequestParam int day) {
+    public ModelMap booking(@RequestParam String mobile, @RequestParam String type, @RequestParam int day) {
+        ModelMap model = new ModelMap();
         boolean check = carRentalService.checkMobile(mobile);
         if(!check) {
-            return "无效用户";
+            model.put("CODE", "01");
+            model.put("MSG", "无效用户");
+            return model;
         }
 
         int inStock = carRentalService.getInStock(type);
         if(inStock == 0) {
-            return "此车型已租完了，请选择其他车型";
+            model.put("CODE", "01");
+            model.put("MSG", "此车型已租完了，请选择其他车型");
+            return model;
         }
         //查余额
         BigDecimal balance = carRentalService.getBalance(mobile);
         //租车需要花费的价格
         BigDecimal shouldCost = carRentalService.getCarCost(type, day);
         if(balance.compareTo(shouldCost) < 0) {
-            return "余额不足";
+            model.put("CODE", "01");
+            model.put("MSG", "余额不足");
+            return model;
         }
 
         int res = carRentalService.rentalCar(mobile, shouldCost, type, day);
-        String msg;
         if(res > 0) {
-            msg = "租车成功";
+            model.put("CODE", "00");
+            model.put("MSG", "租车成功");
         } else {
-            msg = "租车失败";
+            model.put("CODE", "01");
+            model.put("MSG", "租车失败");
         }
-        return msg;
+        return model;
     }
 
     /**
@@ -57,12 +68,30 @@ public class CarRentalController {
      * @return
      */
     @RequestMapping("/car/recycle")
-    public String booking(@RequestParam String mobile, @RequestParam String id, @RequestParam String type) {
+    public ModelMap booking(@RequestParam String mobile, @RequestParam String id, @RequestParam String type) {
+        ModelMap model = new ModelMap();
         int res = carRentalService.returnBack(mobile, id, type);
         if(res > 0) {
-            return "还车成功";
+            model.put("CODE", "00");
+            model.put("MSG", "还车成功");
         } else {
-            return "没有可还的车";
+            model.put("CODE", "01");
+            model.put("MSG", "没有可还的车");
         }
+        return model;
+    }
+
+    /**
+     * 查询租车
+     * @param mobile
+     * @return
+     */
+    @RequestMapping("/car/query")
+    public ModelMap query(@RequestParam String mobile) {
+        ModelMap model = new ModelMap();
+        List<Map<String,String>> list = carRentalService.queryRental(mobile);
+        model.put("DATA", list);
+        model.put("CODE", "00");
+        return model;
     }
 }

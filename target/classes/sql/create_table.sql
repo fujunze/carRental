@@ -25,6 +25,6 @@ create table rental_log(
 
 insert into car_in_stock(car_model,car_model_name,in_stock,one_day_cost,update_date) values ('1', 'Toyota Camry', 2, 400, now());
 insert into car_in_stock(car_model,car_model_name,in_stock,one_day_cost,update_date) values ('2', 'BMW 650', 2, 700, now());
-insert into user_info(user_name, mobile, account_balance) values ('jeff', '13800138000', 2000);
-insert into user_info(user_name, mobile, account_balance) values ('tom', '13800138111', 300);
+insert into user_info(user_name, mobile, account_balance) values ('jeff', '13800138000', 2000000);
+insert into user_info(user_name, mobile, account_balance) values ('tom', '13800138111', 1000);
 insert into user_info(user_name, mobile, account_balance) values ('kate', '13800138222', 0);

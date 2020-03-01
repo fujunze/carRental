@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class CarRentalServiceImpl implements CarRentalService {
@@ -59,6 +61,11 @@ public class CarRentalServiceImpl implements CarRentalService {
     @Override
     public int getInStock(String type) {
         return carRentalDao.getInStock(type);
+    }
+
+    @Override
+    public List<Map<String, String>> queryRental(String mobile) {
+        return carRentalDao.queryRental(mobile);
     }
 
 

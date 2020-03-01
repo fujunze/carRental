@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface CarRentalDao {
@@ -36,4 +38,7 @@ public interface CarRentalDao {
 
     @Select("select in_stock from car_in_stock where car_model = #{type}")
     int getInStock(String type);
+
+    @Select("select r.id as \"id\", c.car_model_name \"car\" from rental_log r, car_in_stock c where r.mobile=#{mobile} and r.car_model=c.car_model and r.return_date is null")
+    List<Map<String, String>> queryRental(String mobile);
 }

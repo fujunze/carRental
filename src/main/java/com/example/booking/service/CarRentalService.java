@@ -1,6 +1,8 @@
 package com.example.booking.service;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 public interface CarRentalService {
 
@@ -15,4 +17,6 @@ public interface CarRentalService {
     int returnBack(String mobile, String id, String type);
 
     int getInStock(String type);
+
+    List<Map<String, String>> queryRental(String mobile);
 }
