@@ -1,0 +1,18 @@
+
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+
+$("#queryBtn").click(function(){
+    alert("Text: " + $("#mobile").text());
+});
+</script>
+<body>
+<input type="text" id="mobile" value="请输入手机号">
+<input type="button"  value="查询" id="queryBtn" onclick="alert($('#mobile').text())">
+</body>
+</html>
