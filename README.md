@@ -191,5 +191,5 @@ mobile=13800138000&type=1&id=2|还车成功|pass
 
 输入参数|输出|结果
 ---- | ---- | ----
-mobile= 13800138000|{"DATA":[{"car":"Toyota Camry","id":2},{"car":"Toyota Camry","id":3},{"car":"BMW 650","id":4}],"CODE":"00"}|pass
-mobile=13800138222|空|pass
+mobile=13800138000|{"DATA":[{"car":"Toyota Camry","id":2},{"car":"Toyota Camry","id":3},{"car":"BMW 650","id":4}],"CODE":"00"}|pass
+mobile=13800138222|{"DATA":[],"CODE":"00"}|pass
